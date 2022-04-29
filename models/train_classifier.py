@@ -24,8 +24,8 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 def load_data(database_filepath):
-    engine = create_engine("sqlite:///" + database_filepath)
-    df = pd.read_sql("SELECT * FROM messages_with_categories", engine)[1:100]
+    engine = create_engine('sqlite:///' + database_filepath)
+    df = pd.read_sql('SELECT * FROM messages_with_categories', engine)[1:100]
     X = df.message
     category_names = df.columns[4:].values
     Y = df[category_names]
@@ -79,17 +79,17 @@ def evaluate_model(model, X_test, Y_test, category_names):
         f1_all.append(f1)
         precision_all.append(precision)
         recall_all.append(recall)
-        print("Accuracy for", category_names[i], ":", acc)
-        print("F1 score for", category_names[i], ":", f1)
-        print("Precision for", category_names[i], ":", precision)
-        print("Recall for", category_names[i], ":", recall)
+        print('Accuracy for', category_names[i], ':', acc)
+        print('F1 score for', category_names[i], ':', f1)
+        print('Precision for', category_names[i], ':', precision)
+        print('Recall for', category_names[i], ':', recall)
     
     acc_all_df = pd.DataFrame({'category_name':category_names, 'accuracy':acc_all, 'f1_score':f1_all, 'precision':precision_all, 'recall':recall_all})
     return acc_all_df
 
 
 def save_model(model, model_filepath):
-    file_to_store = open(model_filepath, "wb")
+    file_to_store = open(model_filepath, 'wb')
     pickle.dump(model, file_to_store)
     file_to_store.close()
     return

@@ -21,7 +21,7 @@ def change_categories_format(categories):
     each category in a single colum with 0-1 values.
     '''
     # Step 1: create a dataframe of the individual category columns
-    categories_wide = categories.str.split(";", expand = True)
+    categories_wide = categories.str.split(';', expand = True)
 
     # Step 2: Extract categories names to be used as column names:
     # - select the first row of the categories_wide dataframe
@@ -59,7 +59,7 @@ def clean_data(df):
     # - drop genre column as well 
     df.drop(columns = ['categories'], inplace=True)
     # concatenate the original dataframe with the new `categories` dataframe
-    df = df.merge(categories_wide, on = "id")
+    df = df.merge(categories_wide, on = 'id')
 
     # Remove constant column
     df.drop(columns = 'child_alone')
@@ -75,7 +75,7 @@ def save_data(df, database_filename):
     Saves cleaned df into sqlite database.
     '''
     # Save the clean dataset into an sqlite database
-    engine = create_engine("sqlite:///" + database_filename) #sqlite:///disaster_messages_categories.db
+    engine = create_engine('sqlite:///' + database_filename)
     df.to_sql('messages_with_categories', engine, index=False, if_exists = 'replace')
     pass  
 
