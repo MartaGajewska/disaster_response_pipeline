@@ -1,7 +1,6 @@
 import nltk
 nltk.download(['punkt', 'wordnet', 'omw-1.4'])
 
-
 # import statements
 import sys
 import pickle
@@ -20,10 +19,10 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
-
-
-
 def load_data(database_filepath):
+    '''
+    Reads data from the database and creates X, Y and category names.
+    '''
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql('SELECT * FROM messages_with_categories', engine)[1:100]
     X = df.message
@@ -33,6 +32,9 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    '''
+    Performs text tokenization, lemmatization and normalization.
+    '''
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -45,6 +47,9 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+    Builds a multioutput classifier using tfidf and custom tokenization.
+    '''
     pipeline = Pipeline([
                 ('vect', CountVectorizer(tokenizer=tokenize)),
                 ('tfidf', TfidfTransformer()),
@@ -65,6 +70,9 @@ def build_model():
     return cv
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+    Calculates accuracy, precision, recall and f1 score for each category.
+    '''
     Y_pred = model.predict(X_test)
     acc_all = []
     f1_all = []
@@ -89,6 +97,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    '''
+    Saves model to a pickle file.
+    '''
     file_to_store = open(model_filepath, 'wb')
     pickle.dump(model, file_to_store)
     file_to_store.close()
@@ -96,6 +107,9 @@ def save_model(model, model_filepath):
 
 
 def main():
+    '''
+    Runs the model training workflow.
+    '''
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
