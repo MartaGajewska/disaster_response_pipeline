@@ -1,9 +1,9 @@
 # Disaster Response Pipeline Project
 
-## About the project:
+## About the project
 This project is based on a data set containing real messages that were sent during disaster events, which was used to create a machine learning pipeline categorizing these events so that they can be distributed across appropriate disaster relief agencies. 
 
-## Instructions:
+## Instructions
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
@@ -16,7 +16,7 @@ This project is based on a data set containing real messages that were sent duri
 
 3. Go to http://0.0.0.0:3001/
 
-## Files in this repository:
+## Files in this repository
 - data folder
     - disaster_messages.csv - messages sent during disaster events
     - disaster_categories.csv - categories assigned to messages
@@ -27,10 +27,10 @@ This project is based on a data set containing real messages that were sent duri
     - classifier.pkl - saved model
 - app
     - template
-    - master.html  # main page of web app
-    - go.html  # classification result page of web app
-    - run.py  # Flask file that runs app
+    - master.html - main page of web app
+    - go.html - classification result page of web app
+    - run.py - Flask file that runs app
 - README.md
 
-## Acknowledgements:
+## Acknowledgements
 Data was provided by Figure Eight. Web app template and code scheleton was provided by Udacity.
